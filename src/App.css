@@ -1,0 +1,14 @@
+div {
+  box-sizing: border-box;
+}
+
+.list{
+  padding-left: 25px;
+  text-align: left;
+  border-bottom: 13px solid gray;
+}
+
+.modal{
+ margin-top: 20px; 
+ padding: ;
+}
