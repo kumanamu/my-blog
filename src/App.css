@@ -2,13 +2,15 @@ div {
   box-sizing: border-box;
 }
 
-.list{
-  padding-left: 25px;
+.list {
+  padding-left: 20px;
   text-align: left;
-  border-bottom: 13px solid gray;
+  border-bottom: 1px solid gray;
 }
 
-.modal{
- margin-top: 20px; 
- padding: ;
+.modal {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #eee;
+  text-align: left;
 }
