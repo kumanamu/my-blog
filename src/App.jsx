@@ -33,8 +33,28 @@ function App() {
     setTitle(newTitle);
   }
 
+  //직전 선택한 인덱스를 저장할 스테이트
+  const [currentIndex, SetCurrentIndex]= useState(null);
+
+
   // 모달페이지가 보이게/안보이게 작업하기위한 스테이트
   const [modal, setModal] = useState(true);
+
+  //제목 클릭시 모달 보이기
+  function handleTitle(index){
+    //조건 : 같은 제목을 클릭하면 나타나고  사라짐
+    // 다른 제목을 클릭하면 그대로 보여야 하고
+    if(! modal){
+      setModal(true);
+      SetCurrentIndex(index);
+    } else if(currentIndex === index){
+        //2. 같은 타이틀이 선택된 경우
+        setModal(false);
+    } else{
+      SetCurrentIndex(index);
+    }
+    // 
+  }
 
   return (
     <div className='App'>
@@ -50,6 +70,7 @@ function App() {
       }}>글 정렬하기</button>
 
       <div className='list'>
+<<<<<<< HEAD
         <div>
           <h4 onClick={()=>{
             setModal(! modal)
@@ -59,29 +80,27 @@ function App() {
             newLikes[0]++
             setLike(newLikes)
           }}>👍</span>{like[0]} 
+=======
+      {title.map((item, index)=>{
+        return(
+            <div key={index}>
+          <h4 onClick={()=> handleTitle(index)}>
+           {title[index]}
+            <span onClick={()=>{
+              const newLikes = [... like]
+              newLikes[index]++
+              setLike(newLikes)
+              }}>👍
+            </span>{like[index]} 
+>>>>>>> 1767d8d (모달처리)
           
-          {/* 변경단추 클릭하면 '남자코트추천 -> 여자코트추천 */}
-          <button onClick={changeTitle}>변경</button>
-
+         
           </h4>      
-          <p>작성일 : {createDate[0]}</p>
+          <p>작성일 : {createDate[index]}</p>
         </div>
-        <div>
-          <h4>{title[1]}<span onClick={()=>{
-            const newLikes = [... like]
-            newLikes[1]++
-            setLike(newLikes)
-          }}>👍</span>{like[1]}</h4>
-          <p>작성일 : {createDate[1]}</p>
-        </div>
-        <div>
-          <h4>{title[2]}<span onClick={()=>{
-            const newLikes = [... like]
-            newLikes[2]++
-            setLike(newLikes)
-          }}>👍</span>{like[2]}</h4>
-          <p>작성일 : {createDate[2]}</p>
-        </div>                
+        )
+      })}
+             
       </div>
 
       {/* 상세페이지 나타날 곳 */}
