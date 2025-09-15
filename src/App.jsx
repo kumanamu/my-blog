@@ -19,6 +19,12 @@ function App() {
     '2025-7-1',
   ]);
 
+  const [details, setDetails] = useState([
+    '심플한 디자인의 코트로 가을에 잘 어울림',
+    '강남 우동의 찐 맛집! 먹어보진 않았음',
+    '자바 스터디는 말 만하고 못함',
+  ])
+
   // 좋아요 누름 숫자를 보관할 스테이트
   const [like, setLike] = useState([0,0,0]);
 
@@ -33,27 +39,27 @@ function App() {
     setTitle(newTitle);
   }
 
-  //직전 선택한 인덱스를 저장할 스테이트
-  const [currentIndex, SetCurrentIndex]= useState(null);
-
-
   // 모달페이지가 보이게/안보이게 작업하기위한 스테이트
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
 
-  //제목 클릭시 모달 보이기
+  // 직전 선택한 인덱스를 저장할 스테이트
+  const [currentIndex, setCurrentIndex] = useState(null);
+
+
+  // 제목 클릭 시 모달 보이기
   function handleTitle(index){
-    //조건 : 같은 제목을 클릭하면 나타나고  사라짐
-    // 다른 제목을 클릭하면 그대로 보여야 하고
-    if(! modal){
+    // 조건 : 같은 제목을 클릭하면 나타나고 사라짐
+    // 다른 제목을 클릭하면 그냥 보여야 하고..
+    if(! modal) {
+      //1. 현재 모달이 닫혀있으면 연다.
       setModal(true);
-      SetCurrentIndex(index);
+      setCurrentIndex(index);
     } else if(currentIndex === index){
-        //2. 같은 타이틀이 선택된 경우
-        setModal(false);
-    } else{
-      SetCurrentIndex(index);
+      // 2. 같은 타이틀이 선택된 경우
+      setModal(false);
+    } else {
+      setCurrentIndex(index);
     }
-    // 
   }
 
   return (
@@ -70,41 +76,32 @@ function App() {
       }}>글 정렬하기</button>
 
       <div className='list'>
-<<<<<<< HEAD
-        <div>
-          <h4 onClick={()=>{
-            setModal(! modal)
-          }}></h4>
-          <h4>{title[0]}<span onClick={()=>{
-            const newLikes = [... like]
-            newLikes[0]++
-            setLike(newLikes)
-          }}>👍</span>{like[0]} 
-=======
-      {title.map((item, index)=>{
-        return(
+        {title.map((item, index)=>{
+          return(
             <div key={index}>
-          <h4 onClick={()=> handleTitle(index)}>
-           {title[index]}
-            <span onClick={()=>{
-              const newLikes = [... like]
-              newLikes[index]++
-              setLike(newLikes)
-              }}>👍
-            </span>{like[index]} 
->>>>>>> 1767d8d (모달처리)
-          
-         
-          </h4>      
-          <p>작성일 : {createDate[index]}</p>
-        </div>
-        )
-      })}
-             
+              <h4 onClick={()=> handleTitle(index)}>
+                    {title[index]}
+                <span onClick={()=>{
+                  const newLikes = [... like]
+                  newLikes[index]++
+                  setLike(newLikes)
+                  }}>👍
+                </span>{like[index]} 
+              </h4>      
+              <p>작성일 : {createDate[index]}</p>
+            </div>  
+          )
+        })}           
       </div>
 
       {/* 상세페이지 나타날 곳 */}
-      {modal ? <Modal />: null }
+      {modal ? <Modal 
+          color="lightblue" 
+          title={title} 
+          currentIndex={currentIndex} 
+          createDate={createDate}
+          details={details}
+          />: null }
     </div>
   )
 }
