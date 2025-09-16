@@ -28,15 +28,16 @@ function App() {
   ])
 
   // 좋아요 누름 숫자를 보관할 스테이트
-  const [like, setLike] = useState([0,0,0]);
+  const [like, setLike] = useState([0, 0, 0]);
 
   // 좋아요 처리 함수
   // function addLikes(num){
   //   setLike(like[num]+1)
   // }
 
-  function changeTitle(){
-    const newTitle = [... title];
+
+  function changeTitle() {
+    const newTitle = [...title];
     newTitle[0] = '여자코드추천';
     setTitle(newTitle);
   }
@@ -46,7 +47,30 @@ function App() {
 
   // 직전 선택한 인덱스를 저장할 스테이트
   const [currentIndex, setCurrentIndex] = useState(null);
-  
+
+
+  //게시글 삭제 처리 함수
+  function deletePost(index) {
+    //제목
+    const newTitle = props.title.filter((__, i) => i !== index);
+    //내용
+    const newDetails = props.details.filter((__, i) => i !== index);
+    //날짜
+    const newDate = props.newCreateDate.filter((__, i) => i !== index);
+    //w좋아요
+    const newLike = props.like.filter((__, i) => i !== index);
+
+    //부모 스테이트에 함수전달
+
+    props.setTitle(newTitle);
+    props.setDetails(newDetails);
+    props.setCreateDate(newDate);
+    props.setLike(newLikes);
+
+    // 스테이트 갱신
+    
+  }
+
 
   return (
     <div className='App'>
@@ -56,7 +80,7 @@ function App() {
       {/* <h4 style={{color: 'red', fontSize: '20px'}}>{post}</h4> */}
 
       {/* Blog 위치할 곳 */}
-      <Blog 
+      <Blog
         title={title}
         createDate={createDate}
         details={details}
@@ -69,18 +93,23 @@ function App() {
         setCurrentIndex={setCurrentIndex}
         modal={modal}
         setModal={setModal}
+        deletePost={deletePost}
       />
 
+
+
       {/* 상세페이지 나타날 곳 */}
-      {modal ? <Modal 
-          color="lightblue" 
-          title={title} 
-          currentIndex={currentIndex} 
-          createDate={createDate}
-          details={details}
-          />: null }
+      {modal ? <Modal
+        color="lightblue"
+        title={title}
+        currentIndex={currentIndex}
+        createDate={createDate}
+        details={details}
+      /> : null}
     </div>
   )
 }
+
+
 
 export default App
